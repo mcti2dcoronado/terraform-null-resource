@@ -14,9 +14,15 @@ resource "aws_instance" "ec2_example" {
   }
 }
 
-# The following null resource will print message "Hello World"
+
 resource "null_resource" "null_resource_simple" {
+  triggers = {
+    id = aws_instance.ec2_example.id  
+  }
   provisioner "local-exec" {
-    command = "echo Hello World"
+    command = <<-EOT
+      chmod +x install-istio.sh  
+      ./install-istio.sh
+    EOT
   }
 }
