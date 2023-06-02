@@ -3,7 +3,7 @@
 
 # Provider Block
 provider "aws" {
-  region     = "eu-central-1"
+  region     = "us-east-1"
 }
 
 resource "aws_instance" "ec2_example" {
