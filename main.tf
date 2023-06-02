@@ -15,14 +15,15 @@ resource "aws_instance" "ec2_example" {
 }
 
 
+# This null_resource will be executed everytime because of id = time().
 resource "null_resource" "null_resource_simple" {
+  
+  # Look carefully in the trigger we have assigned time() which we change value every time you run $terraform apply command.
   triggers = {
-    id = aws_instance.ec2_example.id  
+    id = time()
   }
+
   provisioner "local-exec" {
-    command = <<-EOT
-      chmod +x install-istio.sh  
-      ./install-istio.sh
-    EOT
+    command = "echo Hello World"
   }
-}
+} 
